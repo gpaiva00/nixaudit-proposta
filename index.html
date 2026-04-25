@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Proposta — NixAudit</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --black: #111111;
+                --beige: #f2ede6;
+                --pink: #ff3eb5;
+                --yellow: #ffd84d;
+                --border: #111111;
+                --card-bg: #ffffff;
+                --muted: #6b6560;
+            }
+
+            body {
+                background: var(--beige);
+                font-family: "DM Sans", sans-serif;
+                color: var(--black);
+                max-width: 480px;
+                margin: 0 auto;
+                min-height: 100vh;
+            }
+
+            /* HEADER */
+            .header {
+                background: var(--black);
+                padding: 14px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+            .header-handle {
+                color: #fff;
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 700;
+                font-size: 15px;
+                letter-spacing: -0.3px;
+            }
+            .header-badge {
+                background: var(--yellow);
+                color: var(--black);
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                padding: 8px 16px;
+                border-radius: 999px;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+            .header-badge::before {
+                content: "✦";
+                font-size: 10px;
+            }
+
+            /* PROFILE */
+            .profile {
+                padding: 24px 20px 20px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                border-bottom: 1.5px solid var(--border);
+            }
+            .avatar {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                border: 2.5px solid var(--pink);
+                background: #ddd;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+                flex-shrink: 0;
+                overflow: hidden;
+            }
+            .avatar-initials {
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 800;
+                font-size: 20px;
+                color: var(--black);
+            }
+            .profile-info .name {
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 700;
+                font-size: 17px;
+            }
+            .profile-info .role {
+                font-size: 13.5px;
+                color: var(--muted);
+                margin-top: 1px;
+            }
+
+            /* HERO */
+            .hero {
+                padding: 28px 20px 4px;
+            }
+            .hero-label {
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 1.2px;
+                text-transform: uppercase;
+                color: var(--muted);
+                margin-bottom: 12px;
+            }
+            .hero-title {
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 800;
+                font-size: 40px;
+                line-height: 1.05;
+                letter-spacing: -1.5px;
+            }
+            .hero-title .highlight {
+                background: var(--pink);
+                color: var(--black);
+                padding: 0 4px;
+                display: inline;
+            }
+            .hero-subtitle {
+                margin-top: 16px;
+                font-size: 15px;
+                color: var(--muted);
+                line-height: 1.6;
+            }
+
+            /* DIVIDER */
+            .divider {
+                height: 1.5px;
+                background: var(--border);
+                margin: 28px 20px;
+            }
+
+            /* PLAN CARD */
+            .plan-card {
+                margin: 0 20px 20px;
+                background: var(--card-bg);
+                border: 2px solid var(--border);
+                border-radius: 20px;
+                overflow: hidden;
+            }
+            .plan-card.featured {
+                background: var(--black);
+                color: #fff;
+            }
+
+            .plan-header {
+                padding: 20px 22px 16px;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            .plan-name {
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 800;
+                font-size: 20px;
+                letter-spacing: -0.5px;
+                line-height: 1.1;
+            }
+            .plan-card.featured .plan-name {
+                color: #fff;
+            }
+
+            .plan-price-badge {
+                background: var(--yellow);
+                color: var(--black);
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 800;
+                font-size: 14px;
+                padding: 6px 14px;
+                border-radius: 999px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .plan-card.featured .plan-price-badge {
+                background: var(--pink);
+                color: #fff;
+            }
+
+            .plan-body {
+                padding: 0 22px 22px;
+            }
+            .plan-avail {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0.8px;
+                text-transform: uppercase;
+                color: var(--muted);
+                margin-bottom: 16px;
+            }
+            .plan-card.featured .plan-avail {
+                color: #aaa;
+            }
+            .plan-avail::before {
+                content: "";
+                display: inline-block;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #4ade80;
+                box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.3);
+            }
+
+            .plan-items {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .plan-items li {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                font-size: 14.5px;
+                line-height: 1.4;
+            }
+            .plan-items li::before {
+                content: "→";
+                font-size: 13px;
+                color: var(--pink);
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+            .plan-card.featured .plan-items li {
+                color: #e0dbd5;
+            }
+
+            .plan-extra-item {
+                background: rgba(255, 62, 181, 0.12);
+                border: 1.5px solid var(--pink);
+                border-radius: 10px;
+                padding: 10px 12px;
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--pink);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-top: 4px;
+            }
+            .plan-extra-item::before {
+                content: "✦";
+                font-size: 11px;
+            }
+
+            /* DIFF SECTION */
+            .diff-section {
+                margin: 0 20px 28px;
+            }
+            .diff-title {
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 800;
+                font-size: 22px;
+                letter-spacing: -0.5px;
+                margin-bottom: 6px;
+            }
+            .diff-desc {
+                font-size: 14px;
+                color: var(--muted);
+                line-height: 1.6;
+                margin-bottom: 16px;
+            }
+            .diff-rows {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .diff-row {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                background: #fff;
+                border: 1.5px solid var(--border);
+                border-radius: 14px;
+                padding: 14px 16px;
+            }
+            .diff-tag {
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 700;
+                font-size: 12px;
+                padding: 3px 10px;
+                border-radius: 999px;
+                border: 1.5px solid var(--border);
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .diff-tag.p1 {
+                background: var(--yellow);
+            }
+            .diff-tag.p2 {
+                background: var(--pink);
+                color: #fff;
+                border-color: var(--pink);
+            }
+            .diff-row-text {
+                font-size: 13.5px;
+                line-height: 1.5;
+                color: #333;
+                padding-top: 2px;
+            }
+
+            /* FOOTER CTA */
+            .footer-cta {
+                padding: 0 20px 36px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .footer-label {
+                font-size: 14px;
+                color: var(--muted);
+                font-weight: 500;
+            }
+            .cta-btn {
+                background: var(--pink);
+                color: #fff;
+                font-family: "Bricolage Grotesque", sans-serif;
+                font-weight: 700;
+                font-size: 15px;
+                border: none;
+                border-radius: 999px;
+                padding: 14px 22px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                text-decoration: none;
+                line-height: 1.2;
+                text-align: center;
+            }
+            .cta-btn-icon {
+                font-size: 18px;
+            }
+
+            .bottom-line {
+                height: 1.5px;
+                background: var(--border);
+                margin: 0 20px 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <header class="header">
+            <span class="header-handle">@ogabspaiva</span>
+            <span class="header-badge">Proposta exclusiva</span>
+        </header>
+
+        <!-- PROFILE -->
+        <div class="profile">
+            <div class="avatar">
+                <span class="avatar-initials">G</span>
+            </div>
+            <div class="profile-info">
+                <div class="name">Gabriel</div>
+                <div class="role">Desenvolvedor · Sites &amp; Apps</div>
+            </div>
+        </div>
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-label">Proposta de desenvolvimento</div>
+            <h1 class="hero-title">
+                <span class="highlight">NixAudit</span>
+            </h1>
+            <p class="hero-subtitle">
+                Ciclos semanais com foco em entregas reais, validação constante
+                e evolução contínua do produto.
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- PLAN 1 -->
+        <div class="plan-card">
+            <div class="plan-header">
+                <div>
+                    <div class="plan-name">Plano 1<br />Dias úteis</div>
+                </div>
+                <div class="plan-price-badge">R$ 880/mês</div>
+            </div>
+            <div class="plan-body">
+                <div class="plan-avail">Segunda a sexta</div>
+                <ul class="plan-items">
+                    <li>Desenvolvimento das funcionalidades priorizadas</li>
+                    <li>Validação das entregas em call</li>
+                    <li>Ajustes com base no feedback</li>
+                    <li>Call de fechamento da semana</li>
+                    <li>Planejamento da semana seguinte</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PLAN 2 -->
+        <div class="plan-card featured">
+            <div class="plan-header">
+                <div>
+                    <div class="plan-name">
+                        Plano 2<br />Atendimento ampliado
+                    </div>
+                </div>
+                <div class="plan-price-badge">R$ 1.200/mês</div>
+            </div>
+            <div class="plan-body">
+                <div class="plan-avail">7 dias por semana</div>
+                <ul class="plan-items">
+                    <li>Desenvolvimento das funcionalidades priorizadas</li>
+                    <li>Validação das entregas em call</li>
+                    <li>Ajustes com base no feedback</li>
+                    <li>Call de fechamento da semana</li>
+                    <li>Planejamento da semana seguinte</li>
+                    <li>Alinhamentos e ajustes urgentes</li>
+                </ul>
+                <div class="plan-extra-item">
+                    Disponibilidade ampliada — fins de semana incluídos
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- DIFF -->
+        <div class="diff-section">
+            <h2 class="diff-title">A diferença entre os planos</h2>
+            <p class="diff-desc">
+                O trabalho em si é o mesmo nos dois modelos. O que muda é a
+                <strong
+                    >janela de disponibilidade e velocidade de resposta.</strong
+                >
+            </p>
+            <div class="diff-rows">
+                <div class="diff-row">
+                    <span class="diff-tag p1">Plano 1</span>
+                    <span class="diff-row-text"
+                        >Execução e alinhamentos concentrados em dias
+                        úteis.</span
+                    >
+                </div>
+                <div class="diff-row">
+                    <span class="diff-tag p2">Plano 2</span>
+                    <span class="diff-row-text"
+                        >Execução e alinhamentos também aos fins de semana, com
+                        maior flexibilidade e prioridade de resposta.</span
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-line"></div>
+
+        <!-- FOOTER CTA -->
+        <div class="footer-cta">
+            <span class="footer-label">E aí, vamos fechar? 👋</span>
+            <a href="https://wa.me/55" class="cta-btn">
+                <span class="cta-btn-icon">✅</span>
+                <span>Vamos fechar no<br />WhatsApp</span>
+            </a>
+        </div>
+    </body>
+</html>
